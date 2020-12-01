@@ -18,13 +18,39 @@
         </div>
     </div>
     <div class='list-content'>
-        <button id='list-button' type="button" class="btn btn-primary btn-lg btn-block">Display lists</button>
+        <div class="dropdown">
+            <button class="dropbtn">Display ToDo lists</button>
+            <div class="dropdown-content">
+              <span>Link 1</span>
+              <span>Link 2</span>
+              <span>Link 3</span>
+            </div>
+          </div>
     </div>
     <div id='list-add-item'>
-        <p>Hello</p>
+        <form>
+            <input type='text' placeholder="Enter list name">
+            <input class ='submit-btn' type='submit' value='New ToDo list'>
+        </form>
     </div>
     <div id='content'>
-        <p>Content div</p>
+        <div id='content-center'>
+            <p>My workday</p>
+            <div id='list-name'></div>
+            <div id='task-add-item'>
+                <form>
+                    <input type='text' placeholder="enter task to add">
+                    <input type='submit' value='Add task'>
+                </form>
+            </div>
+            <div id='task-list'>
+                <form>
+                    <input type='radio'>
+                    <span>Task</span>
+                    <input type="submit" value='-'>
+                </form>
+            </div>
+        </div>
     </div>
     
     
