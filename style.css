@@ -107,9 +107,28 @@ input.submit-btn {
     border: none;
 }
 
+#content-center {
+    height: 200px;
+    width: 450px;
+    float: left;
+}
+
 #content-center>p {
+    
     padding-top: 20px;
     text-align: center;
+}
+
+#task-form {
+    width: 100px;
+    margin-top: 20px;
+    margin-right: 80px;
+    position: absolute;
+}
+
+.task-delete {
+    float: right;
+    margin-right: 10px;
 }
 
 .submit-btn:hover{background-color: #6c899a;}
