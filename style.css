@@ -29,8 +29,10 @@ body {
     text-align: center;
     color: #6c899a;
     font-family: 'Comic Sans', 'Comic Sans MS', cursive;
+    font-size: 36px;
     
 }
+
 
 .list-content {
     background-color: #d9d9d9;
@@ -113,7 +115,9 @@ input.submit-btn {
 #content-center {
     height: 200px;
     width: 450px;
-    float: left;
+    float: center;
+    margin-left: 200px;
+    text-align: left;
 }
 
 #content-center>p {
