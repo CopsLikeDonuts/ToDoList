@@ -3,5 +3,4 @@ const listNames = {
     'My morning': ['Get up', 'Clean teeth', 'Have a breakfast', 'Take a laptop'],
     'Buy food': ['Apples', 'Oranges', 'Potatoes', 'Milk', 'Chicken fillet', 'Coffee', 'Cheese']
 };
-console.log(Object.keys(listNames).length);
-console.log(Object.keys(listNames)[0]);
+console.log(Object.values(listNames)[0]);

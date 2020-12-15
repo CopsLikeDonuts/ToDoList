@@ -35,14 +35,17 @@ addListForm.addEventListener('submit', (e) => {
 //display list properities
 function displayLists() {
     const toDoLists = document.querySelectorAll('.lists');
+    const taskList = document.getElementById('task-list');
     const listName = document.getElementById('list-name');
     toDoLists.forEach(item => {
         item.addEventListener('click', () => {
             listName.innerText = item.innerText;
+            
         });
     });
 }
 displayLists();
 
 });
+
 
