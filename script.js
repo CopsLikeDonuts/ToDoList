@@ -35,11 +35,11 @@ addListForm.addEventListener('submit', (e) => {
 //display list properities
 function displayLists() {
     const toDoLists = document.querySelectorAll('.lists');
-    const taskList = document.getElementById('task-list');
     const listName = document.getElementById('list-name');
     toDoLists.forEach(item => {
-        item.addEventListener('click', () => {
+        item.addEventListener('click', (e) => {
             listName.innerText = item.innerText;
+            renderTasks(listNames, e.target.innerText)
             
         });
     });
@@ -48,4 +48,18 @@ displayLists();
 
 });
 
+function renderTasks(object, value) {
+    debugger;
+    const taskList = document.getElementById('task-list');
+    taskList.innerHTML = ''
+    for (let i = 0; i < object[value].length; i++) {
+        let div = document.createElement('div');
+        div.innerHTML = `
+        <input class ='task-select' type='radio'>
+            <span>${object[value][i]}</span>
+        <input class ='task-delete' type="submit" value='-'>
+        `
+        taskList.appendChild(div);
+    }
 
+}
