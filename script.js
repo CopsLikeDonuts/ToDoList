@@ -1,23 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
-// const listNames = ['My workday', 'Work', 'Buy food'];
-const listNames = {
-    'My workday': ['Answer e-mails', 'Meeting', 'Code', 'Study content', 'Report'],
-    'My morning': ['Get up', 'Clean teeth', 'Have a breakfast', 'Take a laptop'],
-    'Buy food': ['Apples', 'Oranges', 'Potatoes', 'Milk', 'Chicken fillet', 'Coffee', 'Cheese']
-};
+let getLists = JSON.parse(localStorage.getItem('lists'));
+if (!getLists) {
+    getLists = {}
+}
+
+function updateLocalStorage() {
+    let serializedLists = JSON.stringify(getLists);
+    localStorage.setItem('lists', serializedLists);
+}
+
+//render toDoLists
 const listContent = document.querySelector('.dropdown-content');
 const listDisplayBtn = document.getElementById('dropbtn');
 
-//render toDoLists
 function renderLists() {
     listContent.innerHTML = '';
-    
-    for (let i = 0; i < Object.keys(listNames).length; i++) {
-        let newListItem = document.createElement('span');
-        newListItem.classList.add('dropdown-content', 'lists');
-        newListItem.innerText = Object.keys(listNames)[i];
-        listDisplayBtn.append(newListItem);
+    if (getLists) {
+        for (let i = 0; i < Object.keys(getLists).length; i++) {
+            let newListItem = document.createElement('span');
+            newListItem.classList.add('dropdown-content', 'lists');
+            newListItem.innerText = Object.keys(getLists)[i];
+            listDisplayBtn.append(newListItem);
+            updateLocalStorage();
+        }
     }
+    
 }
 renderLists();
 
@@ -26,10 +33,11 @@ const addListForm = document.getElementById('list-add-form');
 const addListInput = document.getElementById('list-add-input');
 addListForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    listNames[addListInput.value] = [];
+    getLists[addListInput.value] = [];
+    updateLocalStorage();
     renderLists();
-    displayLists();
     addListForm.reset();
+    displayLists();
 });
 
 //display list properities
@@ -39,13 +47,11 @@ function displayLists() {
     toDoLists.forEach(item => {
         item.addEventListener('click', (e) => {
             listName.innerText = item.innerText;
-            renderTasks(listNames, e.target.innerText);
+            renderTasks(getLists, e.target.innerText);
         });
     });
 }
 displayLists();
-
-});
 
 function renderTasks(object, value) {
     const taskList = document.getElementById('task-list');
@@ -58,27 +64,26 @@ function renderTasks(object, value) {
         <input class ='task-delete' type="submit" value='-'>
         `
         taskList.appendChild(div);
-        markTasks();
     }
+    markTasks();
+    taskDelete();
 }
 
 // add task
 const taskAddForm = document.getElementById('task-add-form');
 const taskAddInput = document.getElementById('task-add-input');
-const taskList = document.getElementById('task-list');
 taskAddForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    let newItem = document.createElement('div');
-    newItem.innerText = taskAddInput.value;
+    const currentList = document.getElementById('list-name').innerText;
+    getLists[currentList].push(taskAddInput.value);
+    console.log()
+    updateLocalStorage();
+    taskAddForm.reset();
+    renderTasks(getLists, currentList);
 
-    taskList.appendChild(`
-    <input class ='task-select' type='radio'>
-        ${newItem}
-    <input class ='task-delete' type="submit" value='-'>
-    `);
 });
-// mark tasks as completed
 
+// mark tasks as completed
 function markTasks() {
     const tasksSelector = document.querySelectorAll('.task-select');
 
@@ -89,3 +94,17 @@ function markTasks() {
         });
     });
 }
+
+//delete tasks
+function taskDelete() {
+    const taskDeletors = document.querySelectorAll('.task-delete');
+    const currentList = document.getElementById('list-name').innerText;
+    taskDeletors.forEach((item, i) => {
+        item.addEventListener('click', () => {
+            item.parentElement.remove();
+            getLists[currentList].splice(i, 1);
+            updateLocalStorage();
+        });
+    });
+}
+});
