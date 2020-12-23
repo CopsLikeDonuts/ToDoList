@@ -55,6 +55,14 @@ displayLists();
 
 function renderTasks(object, value) {
     const taskList = document.getElementById('task-list');
+    const listName = document.getElementById('list-name');
+    if (listName.classList.contains('text-red')) {
+        listName.classList.remove('text-red');
+    }
+    
+    if (taskAddInput.classList.contains('wrong-input')) {
+        taskAddInput.classList.remove('wrong-input');
+    }
     taskList.innerHTML = ''
     for (let i = 0; i < object[value].length; i++) {
         let div = document.createElement('div');
@@ -75,11 +83,19 @@ const taskAddInput = document.getElementById('task-add-input');
 taskAddForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const currentList = document.getElementById('list-name').innerText;
-    getLists[currentList].push(taskAddInput.value);
-    console.log()
-    updateLocalStorage();
-    taskAddForm.reset();
-    renderTasks(getLists, currentList);
+    if (currentList == 'Select ToDo list to manage tasks') {
+        const listName = document.getElementById('list-name');
+        listName.innerText = 'Select ToDo list before adding tasks';
+        listName.classList.add('text-red');
+        taskAddInput.classList.add('wrong-input');
+        taskAddForm.reset();
+    } else {
+        getLists[currentList].push(taskAddInput.value);
+        updateLocalStorage();
+        taskAddForm.reset();
+        renderTasks(getLists, currentList);
+    }
+    
 
 });
 

@@ -137,6 +137,12 @@ input.submit-btn {
 }
 
 
+.wrong-input {
+    border-color: red;
+}
+.text-red {
+    color: red;
+}
 
 .submit-btn:hover{background-color: #6c899a;}
   
