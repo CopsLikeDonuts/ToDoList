@@ -95,8 +95,6 @@ taskAddForm.addEventListener('submit', (e) => {
         taskAddForm.reset();
         renderTasks(getLists, currentList);
     }
-    
-
 });
 
 // mark tasks as completed
